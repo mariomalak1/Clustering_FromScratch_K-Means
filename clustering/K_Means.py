@@ -1,7 +1,7 @@
 from .DataFrame import DataFrame
 from .Cluster import Cluster
 
-from random import random 
+import random
 
 class K_Means():
     def __init__(self, k, dataFrame: DataFrame):
@@ -22,10 +22,12 @@ class K_Means():
         pass
         
     # get random centroids for each clusters
-    def __chooseRandomClustersCentroids(self):
-        pass
-        # random.randint(3, 9)
-
+    def __chooseRandomCentroidPointToEachCluster(self):
+        for cluster in self.__clusters:
+            pointIndex = random.randint(0, self.__dataFrame.numOfRows)
+            centerPoint = self.__dataFrame.getRow(pointIndex)
+            cluster.updateCenterLocation(centerPoint)
+    
     # loop on clusters and update each cluster centroid
     def updateClusterCentroids(self):
         for cluster in self.__clusters:
