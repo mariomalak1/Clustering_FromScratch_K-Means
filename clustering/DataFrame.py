@@ -53,8 +53,8 @@ class DataFrame():
 
         dataPoint = []
 
-        for featureData in self.features:
-            dataPoint.append(featureData[numOfRow])
+        for _, values in self.features.items():
+            dataPoint.append(values[numOfRow])
 
         return dataPoint
     
@@ -99,6 +99,20 @@ class DataFrame():
         for i in rowsIndexToDrop:
             self.dropRow(i)
 
-
     def fillNA():
         pass
+
+    def __str__(self):
+        str_format = ""
+        for i in range(5):
+            str_row = "" 
+            
+            row = self.getRow(i)
+            
+            for j in row:
+                str_row += f"{j}  "
+
+            str_format += f"{str_row}\n"
+    
+        return str_format
+    
