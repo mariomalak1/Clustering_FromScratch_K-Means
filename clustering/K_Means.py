@@ -32,6 +32,7 @@ class K_Means():
             if not self.isAllClustersTheSame():
                 self.updateCentroidOfChangedClusters()
             else:
+                print(counter)
                 break
 
             if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
@@ -44,7 +45,7 @@ class K_Means():
         for point in self.__dataFrame.getPoints():
             distances = {}
             for cluster in self.__clusters:
-                distances.update({cluster, cluster.distanceToPoint(point)})
+                distances[cluster] = cluster.distanceToPoint(point)
             
             cluster = self.getNearestClusterFromDistances(distances)
             cluster.addPoint(point)
@@ -67,7 +68,7 @@ class K_Means():
     def getNearestClusterFromDistances(self, distances) -> Cluster:
         # ascending order sort
         sorted_distances = dict(sorted(distances.items(), key=lambda item: item[1]))
-        return list(sorted_distances.items())[0]
+        return list(sorted_distances.items())[0][0]
 
     def isAllClustersTheSame(self):
         for cluster in self.__clusters:
