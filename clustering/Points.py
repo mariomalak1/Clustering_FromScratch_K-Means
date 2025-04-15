@@ -3,7 +3,8 @@ import math
 
 class Points():
     # calculate distance from p1 to p2 by euclidean equation
-    def euclideanEquation(self, p1, p2):
+    @staticmethod
+    def euclideanEquation(p1, p2):
         if len(p1) != len(p2):
             raise RuntimeError("must p1 and p2 have the same features")
         sumOfSquaredDiff = 0
