@@ -3,18 +3,19 @@ class Cluster():
         self.__clusterName = clusterName
         self.__currentLocation = []
         self.__oldLocation = []
-        self.points = []
+        self.__points = []
     
     # take list of new centers 
     # put the current location to the old one 
     def updateCenterLocation(self, newLocation: list):
-        pass
+        self.__oldLocation = self.__currentLocation
+        self.__currentLocation = newLocation
 
     def addPoint(self, p: list):
-        pass
+        self.__points.append(p)
 
     def removePoint(self, p: list):
-        pass
+        self.__points.remove(p)
 
     # calculate the new center of the the cluster and update the center location
     def calcNewCenterLocation(self) -> list:
