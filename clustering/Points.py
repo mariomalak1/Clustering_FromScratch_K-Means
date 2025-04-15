@@ -1,7 +1,7 @@
 import math
 
 
-class Points():    
+class Points():
     # calculate distance from p1 to p2 by euclidean equation
     def euclideanEquation(self, p1, p2):
         if len(p1) != len(p2):
