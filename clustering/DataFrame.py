@@ -34,7 +34,18 @@ class DataFrame():
 
         for i in range(self.numOfFeatures):
             self.features[i].append(rowOfData[i])
-            
+
+
+    def dropRow(self, numOfRow):
+        if(numOfRow < 0 or numOfRow > self.numOfRows):
+            return ValueError("Index of row required is more than the number of data")
+
+
+        for feature_values in self.features.values():
+            feature_values.pop(numOfRow)
+        
+        self.numOfRows -= 1
+    
 
     def getRow(self, numOfRow):
         if(numOfRow < 0 or numOfRow > self.numOfRows):
@@ -74,3 +85,20 @@ class DataFrame():
             # Step 1: Remove the old key and get its value
             value = self.features.pop(i + 1)
             self.features[i] = value
+
+
+    def dropNA(self):
+        rowsIndexToDrop = []
+        for _, values in self.features.items():
+            for i in range(len(values)):
+                if(values[i] == None or values[i] == ''):
+                    rowsIndexToDrop.append(i)
+
+        rowsIndexToDrop = sorted(rowsIndexToDrop, reverse=True)
+
+        for i in rowsIndexToDrop:
+            self.dropRow(i)
+
+
+    def fillNA():
+        pass
