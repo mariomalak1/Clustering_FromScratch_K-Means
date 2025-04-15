@@ -27,10 +27,17 @@ class K_Means():
         counter = 0
 
         while True:
-                
-            if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
+            self.clustering()
+            
+            if not self.isAllClustersTheSame():
+                self.updateCentroidOfChangedClusters()
+            else:
                 break
 
+            if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
+                break
+        
+        return self.__clusters
     
     # make each point be in specific cluster 
     def clustering(self):
