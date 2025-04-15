@@ -6,6 +6,8 @@ class DataFrame():
             raise ValueError("Must provide data parameter")
         
         self.features = {}
+        # list that hold all points -> lists in list 
+        self.__points = []
         self.numOfRows = 0
         self.numOfFeatures = 0
 
@@ -99,9 +101,14 @@ class DataFrame():
 
         for i in rowsIndexToDrop:
             self.dropRow(i)
-
-    def fillNA():
-        pass
+    
+    def getPoints(self):
+        if len(self.__points) != self.numOfRows:
+            for i in len(self.numOfRows):
+                point = self.getRow(i)
+                self.__points.append(point)
+        else:
+            return self.__points
 
     def __str__(self):
         str_format = ""
