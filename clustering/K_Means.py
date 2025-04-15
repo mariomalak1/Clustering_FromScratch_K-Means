@@ -4,6 +4,8 @@ from .Cluster import Cluster
 import random
 
 class K_Means():
+    MAX_NUMBER_OF_ITERATIONS = 100
+    
     def __init__(self, k, dataFrame: DataFrame):
         self.k = k
         self.__dataFrame = dataFrame
