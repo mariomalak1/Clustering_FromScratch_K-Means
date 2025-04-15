@@ -1,16 +1,17 @@
+import math
+
+
 class Points():    
-    # interface for get distance between two points
-    def distanceBetweenTwoPoints():
-        # use euclidean equation
-        pass
-    
     # calculate distance from p1 to p2 by euclidean equation
-    def __euclideanEquation(p1, p2):
-        pass
-
-
-    # if the first point is greater than another return 1
-    # if the first point is smaller than another return -1
-    # else "as they are equal" return 0
-    def compareTwoPoints(p1, p2):
-        pass
+    def euclideanEquation(self, p1, p2):
+        if len(p1) != len(p2):
+            raise RuntimeError("must p1 and p2 have the same features")
+        sumOfSquaredDiff = 0
+        for i in range(len(p1)):
+            # get square diff between two features values
+            squareOfDiff = math.pow((p1[i] - p2[i]), 2)
+            # add it to sum
+            sumOfSquaredDiff += squareOfDiff
+        # get square root of the sum 
+        result = math.sqrt(sumOfSquaredDiff)
+        return result
