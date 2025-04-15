@@ -21,7 +21,17 @@ class Cluster():
 
     # calculate the new center of the the cluster and update the center location
     def calcNewCenterLocation(self) -> list:
-        pass
+        if len(self.__points) == 0:
+            return self.__currentLocation
+
+        lis = []
+        numOfFeatureInPoints = len(self.__points[0])
+
+        for i in range(numOfFeatureInPoints):
+            sumOfFeatures = sum([x for x in self.__points[i]])
+            lis.append( (sumOfFeatures / numOfFeatureInPoints) )
+
+        self.updateCenterLocation(lis)
     
     # calculate distance between the center location to specific point
     def distanceToPoint(self, p: list) -> int:
