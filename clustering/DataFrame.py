@@ -53,4 +53,18 @@ class DataFrame():
 
         return self.features.get(numOfFeature)
 
-    
+    def setFeatureData(self, numOfFeature, data: list):
+        if(len(data) != self.numOfRows):
+            return ValueError("number of data not the same")
+ 
+        if(numOfFeature < 0 or numOfFeature > self.numOfFeatures):
+            return ValueError("Index of required feature is more than the number of features")
+
+        self.features[numOfFeature] = data
+
+    def dropFeature(self, numOfFeature):
+         
+        if(numOfFeature < 0 or numOfFeature > self.numOfFeatures):
+            return ValueError("Index of required feature is more than the number of features")
+
+        self.features.pop(numOfFeature)
