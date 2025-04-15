@@ -50,14 +50,13 @@ class DataFrame():
     
 
     def getRow(self, numOfRow):
-        if(numOfRow < 0 or numOfRow > self.numOfRows):
-            return ValueError("Index of row required is more than the number of data")
+        if numOfRow < 0 or numOfRow >= self.numOfRows:
+            raise ValueError(f"Row index {numOfRow} is out of bounds (0-{self.numOfRows-1})")
 
         dataPoint = []
-
-        for _, values in self.features.items():
-            dataPoint.append(values[numOfRow])
-
+        for feature_values in self.features.values():
+            dataPoint.append(feature_values[numOfRow])
+    
         return dataPoint
     
     def getFeature(self, numOfFeature):
