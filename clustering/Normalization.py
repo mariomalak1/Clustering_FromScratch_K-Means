@@ -1,6 +1,7 @@
 from .DataFrame import DataFrame 
 
-# take data as list of rows and normalize each field
+# take data frame 
+# normalize using min_max normalization method
 # can convert specific field to numerical if it's categorical
 class Normalization():
     def __inti__(self, dataFrame: DataFrame):
@@ -11,6 +12,4 @@ class Normalization():
 
     def min_max_normalization(self):
         pass
-
-
 
