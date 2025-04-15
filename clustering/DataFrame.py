@@ -60,11 +60,17 @@ class DataFrame():
         if(numOfFeature < 0 or numOfFeature > self.numOfFeatures):
             return ValueError("Index of required feature is more than the number of features")
 
-        self.features[numOfFeature] = data
+        self.features.update({numOfFeature: data})
 
     def dropFeature(self, numOfFeature):
-         
         if(numOfFeature < 0 or numOfFeature > self.numOfFeatures):
             return ValueError("Index of required feature is more than the number of features")
 
         self.features.pop(numOfFeature)
+        self.numOfFeatures -= 1
+
+        # rename features after that feature again
+        for i in range(numOfFeature, self.numOfFeatures):
+            # Step 1: Remove the old key and get its value
+            value = self.features.pop(i + 1)
+            self.features[i] = value
