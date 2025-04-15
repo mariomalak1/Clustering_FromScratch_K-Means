@@ -104,7 +104,7 @@ class DataFrame():
     
     def getPoints(self):
         if len(self.__points) != self.numOfRows:
-            for i in len(self.numOfRows):
+            for i in range(self.numOfRows):
                 point = self.getRow(i)
                 self.__points.append(point)
         else:
