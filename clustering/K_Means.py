@@ -21,11 +21,12 @@ class K_Means():
     # all logic of k-means here
     def run(self):
         self.__chooseRandomCentroidPointToEachCluster()
-
+        self.clustering()
+        self.updateAllClusterCentroids()
+        
         counter = 0
 
         while True:
-            self.clustering()
                 
             if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
                 break
@@ -68,6 +69,8 @@ class K_Means():
         return True
     
 
-    def updateCentroidOfChangedClusters():
-        pass
-    
+    def updateCentroidOfChangedClusters(self):
+        for cluster in self.__clusters:
+            if cluster.isClusterCentroidChanged():
+                cluster.calcNewCenterLocation()
+
