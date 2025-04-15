@@ -10,7 +10,7 @@ class Cluster():
     # take list of new centers 
     # put the current location to the old one 
     def updateCenterLocation(self, newLocation: list):
-        self.__oldLocation = self.__currentLocation
+        self.__oldLocation = self.__currentLocation.copy()
         self.__currentLocation = newLocation
 
     def addPoint(self, p: list):
@@ -29,7 +29,7 @@ class Cluster():
         return dis
     
     def isClusterCentroidChanged(self) -> bool:
-        pass
+        return self.__oldLocation != self.__currentLocation
     
     def getClusterPoints(self) -> list:
-        pass
+        return self.__points
