@@ -1,3 +1,5 @@
+from .Points import Points
+
 class Cluster():
     def __init__(self, clusterName):
         self.__clusterName = clusterName
@@ -23,8 +25,9 @@ class Cluster():
     
     # calculate distance between the center location to specific point
     def distanceToPoint(self, p: list) -> int:
-        pass
-
+        dis = Points.euclideanEquation(self.__currentLocation, p)
+        return dis
+    
     def isClusterCentroidChanged(self) -> bool:
         pass
     
