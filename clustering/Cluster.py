@@ -43,3 +43,6 @@ class Cluster():
     
     def getClusterPoints(self) -> list:
         return self.__points
+
+    def getCentroid(self):
+        return self.__currentLocation
