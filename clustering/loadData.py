@@ -3,8 +3,9 @@ import csv
 class LoadData():
     defaultPercentage = 50
     
-    def __init__(self, file_path, percentage_num_of_rows):
+    def __init__(self, file_path, percentage_num_of_rows = 50, isLabeled = False):
         self.file_path = file_path
+        self.isLabeled = isLabeled
 
         # validate percentage_num_of_rows
         try:
@@ -15,11 +16,30 @@ class LoadData():
             print("invalid number, will take default")
             percentage_num_of_rows = LoadData.defaultPercentage
 
-        self.percentage_num_of_rows = percentage_num_of_rows
+        self.percentage_num_of_rows = percentage_num_of_rows / 100
 
 
     # load the data from the file
     def loadDataFromFile(self):
-        pass
+        with open(self.file_path, newline='') as csv_file:
+            data = csv.reader(csv_file)
+            
+            data = list(data)
+            # convert percentage to number of rows
+            total = len(data)
+            num_of_rows = int(total * (self.percentage_num_of_rows))
 
+            counter = 0
 
+            listOfData = []
+
+            for row in data:
+                counter += 1
+                
+                listOfData.append(row)
+
+                if(counter > num_of_rows):
+                    break
+        del data
+
+        return listOfData 
