@@ -4,7 +4,7 @@ from .Cluster import Cluster
 import random
 
 class K_Means():
-    MAX_NUMBER_OF_ITERATIONS = 100
+    MAX_NUMBER_OF_ITERATIONS = 4
     
     def __init__(self, k, dataFrame: DataFrame):
         self.k = k
@@ -20,7 +20,16 @@ class K_Means():
 
     # all logic of k-means here
     def run(self):
-        pass
+        self.__chooseRandomCentroidPointToEachCluster()
+
+        counter = 0
+
+        while True:
+            self.clustering()
+                
+            if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
+                break
+
     
     # make each point be in specific cluster 
     def clustering(self):
@@ -40,10 +49,9 @@ class K_Means():
             cluster.updateCenterLocation(centerPoint)
     
     # loop on clusters and update each cluster centroid
-    def updateClusterCentroids(self):
+    def updateAllClusterCentroids(self):
         for cluster in self.__clusters:
             cluster.calcNewCenterLocation()
-
 
     def getClusters(self) -> list:
         return self.__clusters
@@ -53,3 +61,13 @@ class K_Means():
         sorted_distances = dict(sorted(distances.items(), key=lambda item: item[1]))
         return list(sorted_distances.items())[0]
 
+    def isAllClustersTheSame(self):
+        for cluster in self.__clusters:
+            if cluster.isClusterCentroidChanged():
+                return False
+        return True
+    
+
+    def updateCentroidOfChangedClusters():
+        pass
+    
