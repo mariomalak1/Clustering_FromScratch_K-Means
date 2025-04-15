@@ -47,5 +47,7 @@ class K_Means():
         return self.__clusters
 
     def getNearestClusterFromDistances(self, distances) -> Cluster:
-        pass
+        # ascending order sort
+        sorted_distances = dict(sorted(distances.items(), key=lambda item: item[1]))
+        return list(sorted_distances.items())[0]
 
