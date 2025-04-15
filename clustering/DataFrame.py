@@ -77,7 +77,7 @@ class DataFrame():
         if(numOfFeature < 0 or numOfFeature > self.numOfFeatures):
             return ValueError("Index of required feature is more than the number of features")
 
-        self.features.pop(numOfFeature)
+        droppedValues = self.features.pop(numOfFeature)
         self.numOfFeatures -= 1
 
         # rename features after that feature again
@@ -86,6 +86,7 @@ class DataFrame():
             value = self.features.pop(i + 1)
             self.features[i] = value
 
+        return droppedValues
 
     def dropNA(self):
         rowsIndexToDrop = []
