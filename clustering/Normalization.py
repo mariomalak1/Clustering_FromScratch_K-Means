@@ -41,11 +41,13 @@ class Normalization():
         self.__dataFrame = dataFrame
 
 
+    # make this for try to check if there's any value is in 'str' format from reading csv to convert it to 'int'
+    # if can't make this will raise value error 
     def __checkAllFeaturesNumeric_or_tryParse(self):
         for _, values in self.__dataFrame.features.items():
             for i in range(len(values)):
-                if type(values[i]) is not int:
+                if type(values[i]) is not int or type(values[i]) is not float:
                     try:
-                        values[i] = int(values[i])
+                        values[i] = float(values[i])
                     except:
                         raise TypeError("unsupported operand type(s) for -: 'str' and 'str'")
