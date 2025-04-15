@@ -6,6 +6,8 @@ class LoadData():
     def __init__(self, file_path, percentage_num_of_rows = 50, isLabeled = False):
         self.file_path = file_path
         self.isLabeled = isLabeled
+        # put labels names if it have 
+        self.labels = []
 
         # validate percentage_num_of_rows
         try:
@@ -27,19 +29,28 @@ class LoadData():
             data = list(data)
             # convert percentage to number of rows
             total = len(data)
-            num_of_rows = int(total * (self.percentage_num_of_rows))
+            
+            if(total == 0):
+                return []
 
-            counter = 0
+            # add labels names if it has
+            if(self.isLabeled):
+                for label in data[0]:
+                    self.labels.append(label)
+
+            num_of_rows = int(total * (self.percentage_num_of_rows))
 
             listOfData = []
 
-            for row in data:
-                counter += 1
-                
-                listOfData.append(row)
+            if(self.isLabeled):
+                range_ = range(1, num_of_rows + 1)
+            else:
+                range_ = range(0, num_of_rows)
 
-                if(counter > num_of_rows):
-                    break
+
+            for i in range_:
+                listOfData.append(data[i])
+
         del data
 
         return listOfData 
