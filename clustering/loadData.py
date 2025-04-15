@@ -43,7 +43,10 @@ class LoadData():
             listOfData = []
 
             if(self.isLabeled):
-                range_ = range(1, num_of_rows + 1)
+                if(num_of_rows == total):
+                    range_ = range(1, num_of_rows)
+                else:
+                    range_ = range(1, num_of_rows + 1)
             else:
                 range_ = range(0, num_of_rows)
 
