@@ -93,7 +93,7 @@ class DataFrame():
         rowsIndexToDrop = []
         for _, values in self.features.items():
             for i in range(len(values)):
-                if(values[i] == None or values[i] == ''):
+                if(values[i] is None or values[i] == ''):
                     rowsIndexToDrop.append(i)
 
         rowsIndexToDrop = sorted(rowsIndexToDrop, reverse=True)
