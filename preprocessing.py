@@ -9,7 +9,7 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
 
     data = loadData.loadDataFromFile()
 
-    dataFrame = DataFrame(data)
+    dataFrame = DataFrame(data, loadData.labels)
     beforeNormalizationDataFrame = dataFrame.copy()
 
     # droppedFeature = dataFrame.dropFeature(0)
@@ -39,7 +39,7 @@ def preprocessingCreditCardProb(precentageReadingFromFile, k):
 
     data = loadData.loadDataFromFile()
 
-    dataFrame = DataFrame(data)
+    dataFrame = DataFrame(data, loadData.labels)
     dataFrame.dropNA()
     beforeNormalizationDataFrame = dataFrame.copy()
 
@@ -60,7 +60,8 @@ def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
 
     data = loadData.loadDataFromFile()
 
-    dataFrame = DataFrame(data)
+    dataFrame = DataFrame(data, loadData.labels)
+    beforeNormalizationDataFrame = dataFrame.copy()
 
     # drop customer_id field
     droppedFeature = dataFrame.dropFeature(0)

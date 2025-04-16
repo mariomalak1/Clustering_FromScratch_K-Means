@@ -1,7 +1,7 @@
 # convert list of rows to rows and features
 # can access specific row -> list, and can access specific column of data -> list
 class DataFrame():
-    def __init__(self, data: list):
+    def __init__(self, data: list, labels: list = None):
         if(len(data) == 0):
             raise ValueError("Must provide data parameter")
         
@@ -10,6 +10,7 @@ class DataFrame():
         self.__points = []
         self.numOfRows = 0
         self.numOfFeatures = 0
+        self.labels = labels
 
         row = data[0]
 
@@ -125,5 +126,5 @@ class DataFrame():
 
     def copy(self):
         pointsInThisObject = self.getPoints()
-        newDataFrame = DataFrame(pointsInThisObject)
+        newDataFrame = DataFrame(pointsInThisObject, self.labels)
         return newDataFrame
