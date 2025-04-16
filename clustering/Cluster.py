@@ -46,14 +46,8 @@ class Cluster():
 
     # calculate distance between the center location to specific point
     def distanceToPoint(self, p: list) -> int:
-        # try:
         dis = Points.euclideanEquation(self.__currentLocation, p)
         return dis
-        # except:
-            # print("error in euclideanEquation")
-            # print(f"len of current = {len(self.__currentLocation)} and current = {self.__currentLocation}")
-            # print(f"len of p = {len(p)} and p = {p}")
-            # print("done error")
 
     # return true if the cluster centroid changed
     def isClusterCentroidChanged(self) -> bool:
