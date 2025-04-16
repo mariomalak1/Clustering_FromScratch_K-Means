@@ -108,3 +108,4 @@ class K_Means():
                     cluster.removePoint(point)
         
         toCluster.addPoint(point)
+

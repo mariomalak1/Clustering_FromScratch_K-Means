@@ -13,24 +13,29 @@ class Cluster():
         self.__oldLocation = self.__currentLocation.copy()
         self.__currentLocation = newLocation
 
-    def addPoint(self, p: list):
+    def addPoint(self, p: dict):
         self.__points.append(p)
 
-    def removePoint(self, p: list):
-        self.__points.remove(p)
+    def removePoint(self, p: dict):
+        counter = 0
+        for point in self.__points:
+            if(point.values() == p.values()):
+                break
+            counter += 1
+        self.__points.pop(counter)
 
     def calcNewCenterLocation(self) -> list:
         if not self.__points:
             return self.__currentLocation
         
         num_points = len(self.__points)
-        num_features = len(self.__points[0]) if num_points > 0 else 0
+        num_features = len(list(self.__points[0].values())) if num_points > 0 else 0
         
         new_center = []
         for feature_idx in range(num_features):
             try:
                 # sum feature data in all points and divide it by num of points
-                feature_sum = sum(point[feature_idx] for point in self.__points)
+                feature_sum = sum(list(point.value())[feature_idx] for point in self.__points)
                 new_center.append(feature_sum / num_points)
             except (IndexError, TypeError) as e:
                 print(f"Error calculating feature {feature_idx}: {e}")
@@ -49,7 +54,7 @@ class Cluster():
             # print(f"len of current = {len(self.__currentLocation)} and current = {self.__currentLocation}")
             # print(f"len of p = {len(p)} and p = {p}")
             # print("done error")
-    
+
     # return true if the cluster centroid changed
     def isClusterCentroidChanged(self) -> bool:
         return self.__oldLocation != self.__currentLocation
