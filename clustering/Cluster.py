@@ -5,7 +5,7 @@ class Cluster():
         self.__clusterName = clusterName
         self.__currentLocation = []
         self.__oldLocation = []
-        self.__points = set()
+        self.__points = []
     
     # take list of new centers 
     # put the current location to the old one 
@@ -14,29 +14,27 @@ class Cluster():
         self.__currentLocation = newLocation
 
     def addPoint(self, p: list):
-        self.__points.add(tuple(p))
+        self.__points.append(p)
 
     def removePoint(self, p: list):
-        self.__points.remove(tuple(p))
+        self.__points.remove(p)
 
     def calcNewCenterLocation(self) -> list:
         if not self.__points:
             return self.__currentLocation
         
-        points_list = list(self.__points)
-        num_points = len(points_list)
-        num_features = len(points_list[0]) if num_points > 0 else 0
+        num_points = len(self.__points)
+        num_features = len(self.__points[0]) if num_points > 0 else 0
         
         new_center = []
         for feature_idx in range(num_features):
             try:
                 # sum feature data in all points and divide it by num of points
-                feature_sum = sum(point[feature_idx] for point in points_list)
-                
+                feature_sum = sum(point[feature_idx] for point in self.__points)
                 new_center.append(feature_sum / num_points)
             except (IndexError, TypeError) as e:
                 print(f"Error calculating feature {feature_idx}: {e}")
-                new_center.append(0)  # Fallback value
+                new_center.append(0)
         
         self.updateCenterLocation(new_center)
         return new_center
@@ -56,9 +54,11 @@ class Cluster():
     def isClusterCentroidChanged(self) -> bool:
         return self.__oldLocation != self.__currentLocation
     
-    def getClusterPoints(self) -> set:
+    def getClusterPoints(self) -> list:
         return self.__points
 
     def getCurrentLocation(self):
         return self.__currentLocation
-    
+
+    def getName(self):
+        return self.__clusterName
