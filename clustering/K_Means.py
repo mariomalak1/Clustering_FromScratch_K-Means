@@ -31,7 +31,7 @@ class K_Means():
             self.__chooseRandomCentroidPointToEachCluster()
         else:
             points = self.__dataFrame.getPoints()
-            for i in len(self.__clusters):
+            for i in range(len(self.__clusters)):
                 centerPoint = points[i]
                 self.__clusters[i].updateCenterLocation(centerPoint)
             
@@ -42,15 +42,14 @@ class K_Means():
 
         while True:
             self.clustering()
-            print(f"counter: {counter}")
             
             if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
                 break
-            
-            
+                        
             if not self.isAllClustersTheSame():
                 self.updateCentroidOfChangedClusters()
             else:
+                print(f"counter: {counter}")
                 break
             
             counter += 1
