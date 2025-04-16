@@ -34,27 +34,25 @@ class K_Means():
             for i in range(len(self.__clusters)):
                 centerPoint = points[i]
                 self.__clusters[i].updateCenterLocation(centerPoint)
-            
+
         self.clustering()
         self.updateAllClusterCentroids()
-        
-        counter = 0
+
+        num_iterations = 0
 
         while True:
             self.clustering()
-            
-            if counter >= K_Means.MAX_NUMBER_OF_ITERATIONS:
-                break
-                        
-            if not self.isAllClustersTheSame():
-                self.updateCentroidOfChangedClusters()
-            else:
-                print(f"counter: {counter}")
-                break
-            
-            counter += 1
+            self.updateAllClusterCentroids()
 
-        return self.__clusters
+            if num_iterations >= K_Means.MAX_NUMBER_OF_ITERATIONS:
+                break
+
+            if self.isAllClustersTheSame():
+                break
+
+            num_iterations += 1
+
+        return self.__clusters, num_iterations
     
     # make each point be in specific cluster 
     def clustering(self):
@@ -102,11 +100,11 @@ class K_Means():
                 cluster.calcNewCenterLocation()
 
     def migratePointToCluster(self, point, toCluster: Cluster):
-        if tuple(point) in toCluster.getClusterPoints():
-            return 
+        if point in toCluster.getClusterPoints():
+            return
         else:
             for cluster in self.__clusters:
-                if tuple(point) in cluster.getClusterPoints():
+                if point in cluster.getClusterPoints():
                     cluster.removePoint(point)
         
         toCluster.addPoint(point)
