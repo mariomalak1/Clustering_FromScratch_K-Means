@@ -6,17 +6,17 @@ import random
 class K_Means():
     MAX_NUMBER_OF_ITERATIONS = 50
     
-    def __init__(self, k, dataFrame: DataFrame, chooseRandomly = True, indexPoints = None):
+    def __init__(self, k, dataFrame: DataFrame, chooseRandomly = True, indexCentroids = None):
         self.k = k
         self.__dataFrame = dataFrame
         self.__clusters = []
         self.chooseRandomly = chooseRandomly
-        self.indexPoints = indexPoints
+        self.indexCentroids = indexCentroids
         
 
         if(not chooseRandomly):
-            if (not indexPoints or len(indexPoints) < k):
-                raise ValueError(f"if not choose randomly the data need indexPoints param with {k} numbers as the clusters")
+            if (not indexCentroids or len(indexCentroids) < k):
+                raise ValueError(f"if not choose randomly the data need indexCentroids param with {k} numbers as the clusters")
 
         # to make data frame prepare points in list if it not make it before 
         self.__dataFrame.getPoints()
@@ -57,6 +57,7 @@ class K_Means():
     # make each point be in specific cluster 
     def clustering(self):
         points = self.__dataFrame.getPoints()
+        counter = 0
         for point in points:
             distances = {}
             for cluster in self.__clusters:
@@ -64,10 +65,12 @@ class K_Means():
             
             cluster = self.getNearestClusterFromDistances(distances)
 
-            self.migratePointToCluster(point, cluster)
+            self.migratePointToCluster({counter, point}, cluster)
+
+            counter += 1
         
     # get random centroids for each clusters
-    def __chooseRandomCentroidPointToEachCluster(self, ):
+    def __chooseRandomCentroidPointToEachCluster(self):
         points = self.__dataFrame.getPoints()
         for cluster in self.__clusters:
             pointIndex = random.randint(0, len(points) - 1)
@@ -99,7 +102,8 @@ class K_Means():
             if cluster.isClusterCentroidChanged():
                 cluster.calcNewCenterLocation()
 
-    def migratePointToCluster(self, point, toCluster: Cluster):
+    def migratePointToCluster(self, point: dict, toCluster: Cluster):
+        # point is dict of { index of point: point values}
         if point in toCluster.getClusterPoints():
             return
         else:
