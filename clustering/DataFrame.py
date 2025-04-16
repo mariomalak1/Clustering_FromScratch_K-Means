@@ -106,8 +106,8 @@ class DataFrame():
             for i in range(self.numOfRows):
                 point = self.getRow(i)
                 self.__points.append(point)
-        else:
-            return self.__points
+
+        return self.__points
 
     def __str__(self):
         str_format = ""
@@ -122,4 +122,8 @@ class DataFrame():
             str_format += f"{str_row}\n"
     
         return str_format
-    
+
+    def copy(self):
+        pointsInThisObject = self.getPoints()
+        newDataFrame = DataFrame(pointsInThisObject)
+        return newDataFrame
