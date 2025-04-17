@@ -29,13 +29,16 @@ class Cluster():
             return self.__currentLocation
         
         num_points = len(self.__points)
-        num_features = len(list(self.__points[0].values())) if num_points > 0 else 0
+        num_features = len(list(list(self.__points[0].values())[0])) if num_points > 0 else 0
         
         new_center = []
         for feature_idx in range(num_features):
             try:
                 # sum feature data in all points and divide it by num of points
-                feature_sum = sum(list(point.value())[feature_idx] for point in self.__points)
+                feature_sum = 0
+                for point in self.__points:
+                    feature_sum += list(point.values())[0][feature_idx]
+
                 new_center.append(feature_sum / num_points)
             except (IndexError, TypeError) as e:
                 print(f"Error calculating feature {feature_idx}: {e}")

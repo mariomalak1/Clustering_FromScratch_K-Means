@@ -23,6 +23,9 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
 
     dataFrame.setFeatureData(1, genderToNumerical)
 
+    print(dataFrame)
+    print(beforeNormalizationDataFrame)
+
     normalization.setDataFrame(dataFrame)
 
     normalization.normalize_MinMax()
@@ -32,7 +35,10 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
     clusterMethod = K_Means(k, newDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
-    return clusters, num_iterations
+
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
 def preprocessingCreditCardProb(precentageReadingFromFile, k):
     loadData = LoadData("../SS2025_Clustering_CreditCardData.csv/", precentageReadingFromFile, isLabeled=True)
@@ -53,7 +59,10 @@ def preprocessingCreditCardProb(precentageReadingFromFile, k):
     clusterMethod = K_Means(k, newDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
-    return clusters, num_iterations
+
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
 def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
     loadData = LoadData(dataFileName, precentageReadingFromFile, isLabeled=isLabeld)
@@ -74,19 +83,21 @@ def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
     clusterMethod = K_Means(k, newDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
-    return clusters, num_iterations
 
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
 
 def preprocessing(dataFileName: str, precentageReadingFromFile: int, k: int):
     if dataFileName.find("SS2025_Clustering_SuperMarketCustomers.csv") != -1:
         print("super market")
-        clusters, num_iterations = preprocessingSuperMarketProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = preprocessingSuperMarketProb(precentageReadingFromFile, k)
     elif dataFileName.find("SS2025_Clustering_CreditCardData.csv") != -1:
         print("credit")
-        clusters, num_iterations = preprocessingCreditCardProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = preprocessingCreditCardProb(precentageReadingFromFile, k)
     else:
         print("else")
-        clusters, num_iterations = defaultPreprocessing(dataFileName, precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = defaultPreprocessing(dataFileName, precentageReadingFromFile, k)
 
-    return clusters, num_iterations
+    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame

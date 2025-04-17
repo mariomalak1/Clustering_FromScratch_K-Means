@@ -65,7 +65,7 @@ class K_Means():
             
             cluster = self.getNearestClusterFromDistances(distances)
 
-            self.migratePointToCluster({counter, point}, cluster)
+            self.migratePointToCluster({counter: point}, cluster)
 
             counter += 1
         
@@ -112,4 +112,18 @@ class K_Means():
                     cluster.removePoint(point)
         
         toCluster.addPoint(point)
+
+    # to return each cluster data in form of the old form of it
+    def getRealDataFromClusters(self, oldDataFrame: DataFrame):
+        clustersData = []
+        for _ in self.__clusters:
+            clustersData.append([])
+
+        for i in range(len(self.__clusters)):
+            for point in self.__clusters[i].getClusterPoints():
+                pointIndex, _ = point.items()
+                oldPointForm = oldDataFrame.getRow(pointIndex)
+                clustersData[i].append(oldPointForm)
+
+        return clustersData
 

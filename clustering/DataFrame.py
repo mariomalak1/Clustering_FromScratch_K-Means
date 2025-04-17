@@ -1,3 +1,5 @@
+import copy
+
 # convert list of rows to rows and features
 # can access specific row -> list, and can access specific column of data -> list
 class DataFrame():
@@ -125,6 +127,6 @@ class DataFrame():
         return str_format
 
     def copy(self):
-        pointsInThisObject = self.getPoints()
-        newDataFrame = DataFrame(pointsInThisObject, self.labels)
+        pointsInThisObject = copy.deepcopy(self.getPoints())
+        newDataFrame = DataFrame(pointsInThisObject, copy.deepcopy(self.labels))
         return newDataFrame
