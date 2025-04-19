@@ -18,11 +18,15 @@ class Cluster():
 
     def removePoint(self, p: dict):
         counter = 0
+        founded = False
         for point in self.__points:
-            if(point.values() == p.values()):
+            if(list(point.values()) == list(p.values())):
+                founded = True
                 break
             counter += 1
-        self.__points.pop(counter)
+        if founded:
+            return self.__points.pop(counter)
+        return None
 
     def calcNewCenterLocation(self) -> list:
         if not self.__points:
