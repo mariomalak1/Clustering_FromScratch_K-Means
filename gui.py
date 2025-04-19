@@ -58,7 +58,6 @@ class KMeansGUI:
         self.notebook.pack(fill=tk.BOTH, expand=True)
 
     def browse_file(self):
-        self.filename_var.set("../SS2025_Clustering_SuperMarketCustomers.csv")
         filename = filedialog.askopenfilename()
         if filename:
             self.filename_var.set(filename)
