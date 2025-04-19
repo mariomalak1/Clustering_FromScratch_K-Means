@@ -19,7 +19,7 @@ class K_Means():
                 raise ValueError(f"if not choose randomly the data need indexCentroids param with {k} numbers as the clusters")
 
         # to make data frame prepare points in list if it not make it before 
-        self.__dataFrame.getPoints()
+        self.__dataFrame.getPoints(makeNewOne=True)
 
         for i in range(k):
             cluster = Cluster(f"c{i}")
@@ -121,7 +121,7 @@ class K_Means():
 
         for i in range(len(self.__clusters)):
             for point in self.__clusters[i].getClusterPoints():
-                pointIndex, _ = point.items()
+                pointIndex = list(point.keys())[0]
                 oldPointForm = oldDataFrame.getRow(pointIndex)
                 clustersData[i].append(oldPointForm)
 
