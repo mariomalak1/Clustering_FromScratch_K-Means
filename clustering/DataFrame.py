@@ -104,8 +104,9 @@ class DataFrame():
         for i in rowsIndexToDrop:
             self.dropRow(i)
     
-    def getPoints(self) -> list:
-        if len(self.__points) != self.numOfRows:
+    def getPoints(self, makeNewOne = False) -> list:
+        if len(self.__points) != self.numOfRows or makeNewOne:
+            self.__points.clear()
             for i in range(self.numOfRows):
                 point = self.getRow(i)
                 self.__points.append(point)
