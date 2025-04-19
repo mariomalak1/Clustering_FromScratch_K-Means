@@ -23,9 +23,6 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
 
     dataFrame.setFeatureData(1, genderToNumerical)
 
-    print(dataFrame)
-    print(beforeNormalizationDataFrame)
-
     normalization.setDataFrame(dataFrame)
 
     normalization.normalize_MinMax()
@@ -92,12 +89,12 @@ def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
 def preprocessing(dataFileName: str, precentageReadingFromFile: int, k: int):
     if dataFileName.find("SS2025_Clustering_SuperMarketCustomers.csv") != -1:
         print("super market")
-        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = preprocessingSuperMarketProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, labels = preprocessingSuperMarketProb(precentageReadingFromFile, k)
     elif dataFileName.find("SS2025_Clustering_CreditCardData.csv") != -1:
         print("credit")
-        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = preprocessingCreditCardProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, labels = preprocessingCreditCardProb(precentageReadingFromFile, k)
     else:
         print("else")
-        clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame = defaultPreprocessing(dataFileName, precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, labels = defaultPreprocessing(dataFileName, precentageReadingFromFile, k)
 
-    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame
+    return clusters, num_iterations, dataAfterClusteringWithModification, labels
