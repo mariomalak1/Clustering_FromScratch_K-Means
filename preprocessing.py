@@ -29,11 +29,11 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
     newDataFrame = normalization.getDataFrame()
 
     # clusterMethod = K_Means(2, newDataFrame, False, [7, 145])
-    clusterMethod = K_Means(k, newDataFrame)
+    clusterMethod = K_Means(k, newDataFrame, beforeNormalizationDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
 
-    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
     return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
@@ -53,11 +53,11 @@ def preprocessingCreditCardProb(precentageReadingFromFile, k):
     normalization.normalize_MinMax()
     newDataFrame = normalization.getDataFrame()
 
-    clusterMethod = K_Means(k, newDataFrame)
+    clusterMethod = K_Means(k, newDataFrame, beforeNormalizationDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
 
-    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
     return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
@@ -77,11 +77,11 @@ def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
     normalization.normalize_MinMax()
     newDataFrame = normalization.getDataFrame()
 
-    clusterMethod = K_Means(k, newDataFrame)
+    clusterMethod = K_Means(k, newDataFrame, beforeNormalizationDataFrame)
 
     clusters, num_iterations = clusterMethod.run()
 
-    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters(beforeNormalizationDataFrame)
+    dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
     return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
 
@@ -95,6 +95,6 @@ def preprocessing(dataFileName: str, precentageReadingFromFile: int, k: int):
         clusters, num_iterations, dataAfterClusteringWithModification, labels = preprocessingCreditCardProb(precentageReadingFromFile, k)
     else:
         print("else")
-        clusters, num_iterations, dataAfterClusteringWithModification, labels = defaultPreprocessing(dataFileName, precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, labels = defaultPreprocessing(dataFileName, precentageReadingFromFile, k, True)
 
     return clusters, num_iterations, dataAfterClusteringWithModification, labels
