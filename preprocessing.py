@@ -35,7 +35,9 @@ def preprocessingSuperMarketProb(precentageReadingFromFile, k):
 
     dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
-    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
+    outliers = clusterMethod.getOutliers()
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, outliers, beforeNormalizationDataFrame.labels
 
 def preprocessingCreditCardProb(precentageReadingFromFile, k):
     loadData = LoadData("../SS2025_Clustering_CreditCardData.csv/", precentageReadingFromFile, isLabeled=True)
@@ -59,7 +61,9 @@ def preprocessingCreditCardProb(precentageReadingFromFile, k):
 
     dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
-    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
+    outliers = clusterMethod.getOutliers()
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, outliers, beforeNormalizationDataFrame.labels
 
 def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
     loadData = LoadData(dataFileName, precentageReadingFromFile, isLabeled=isLabeld)
@@ -83,18 +87,20 @@ def defaultPreprocessing(dataFileName, precentageReadingFromFile, k, isLabeld):
 
     dataAfterClusteringWithModification = clusterMethod.getRealDataFromClusters()
 
-    return clusters, num_iterations, dataAfterClusteringWithModification, beforeNormalizationDataFrame.labels
+    outliers = clusterMethod.getOutliers()
+
+    return clusters, num_iterations, dataAfterClusteringWithModification, outliers, beforeNormalizationDataFrame.labels
 
 
 def preprocessing(dataFileName: str, precentageReadingFromFile: int, k: int):
     if dataFileName.find("SS2025_Clustering_SuperMarketCustomers.csv") != -1:
         print("super market")
-        clusters, num_iterations, dataAfterClusteringWithModification, labels = preprocessingSuperMarketProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, outliers, labels = preprocessingSuperMarketProb(precentageReadingFromFile, k)
     elif dataFileName.find("SS2025_Clustering_CreditCardData.csv") != -1:
         print("credit")
-        clusters, num_iterations, dataAfterClusteringWithModification, labels = preprocessingCreditCardProb(precentageReadingFromFile, k)
+        clusters, num_iterations, dataAfterClusteringWithModification, outliers, labels = preprocessingCreditCardProb(precentageReadingFromFile, k)
     else:
         print("else")
-        clusters, num_iterations, dataAfterClusteringWithModification, labels = defaultPreprocessing(dataFileName, precentageReadingFromFile, k, True)
+        clusters, num_iterations, dataAfterClusteringWithModification, outliers, labels = defaultPreprocessing(dataFileName, precentageReadingFromFile, k, True)
 
-    return clusters, num_iterations, dataAfterClusteringWithModification, labels
+    return clusters, num_iterations, dataAfterClusteringWithModification, outliers, labels
